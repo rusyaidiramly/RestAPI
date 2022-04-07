@@ -13,28 +13,7 @@ namespace RestAPI.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        // dummy data
-        // private static Random rng = new Random();
-        // private static List<User> Users = new List<User>(
-        //     Enumerable.Range(1, 10).Select(index => new User
-        //     {
-        //         UserID = index,
-        //         Name = RandomString(10),
-        //         Email = RandomString(8) + "@gmail.com",
-        //         Password = RandomString(12),
-        //         DOB = DateTime.Now.AddDays(0 - rng.Next(200, 20000)).ToString("dd/MM/yyyy")
-
-        //     })
-        //     .ToArray()
-        // );
-
-        private static string dataSource = "user_list.json";
-        private static List<User> Users;
-
-        public UserController()
-        {
-            Users = JsonFileService.LoadJsonFile();
-        }
+        private static List<User> Users = JsonFileService.LoadJsonFile();
 
         [HttpGet]
         public IEnumerable<User> Get()
@@ -60,10 +39,8 @@ namespace RestAPI.Controllers
                 Password = value.Password,
                 NRIC = value.NRIC
             });
+
             JsonFileService.SaveJsonFile(Users);
-
-
-
         }
 
         [HttpPut("{id}")]
@@ -86,27 +63,6 @@ namespace RestAPI.Controllers
             if (selectedUser == null) return;
             Users.Remove(selectedUser);
             JsonFileService.SaveJsonFile(Users);
-        }
-
-        
-
-        private static string RandomString(int length)
-        {
-            const string valid = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
-            StringBuilder res = new StringBuilder();
-            using (RNGCryptoServiceProvider rng = new RNGCryptoServiceProvider())
-            {
-                byte[] uintBuffer = new byte[sizeof(uint)];
-
-                while (length-- > 0)
-                {
-                    rng.GetBytes(uintBuffer);
-                    uint num = System.BitConverter.ToUInt32(uintBuffer, 0);
-                    res.Append(valid[(int)(num % (uint)valid.Length)]);
-                }
-            }
-
-            return res.ToString();
         }
     }
 }
