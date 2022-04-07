@@ -9,20 +9,35 @@ namespace RestAPI.Services
 
         public static void SaveJsonFile<T>(List<T> Objects, string fileName) where T : new()
         {
-            string jsonObj = JsonConvert.SerializeObject(Objects, Formatting.Indented);
-            File.WriteAllText(fileName, jsonObj);
+            try
+            {
+                string jsonObj = JsonConvert.SerializeObject(Objects, Formatting.Indented);
+                File.WriteAllText(fileName, jsonObj);
+            }
+            catch (System.Exception)
+            {
+                throw;
+            }
         }
 
         public static List<T> LoadJsonFile<T>(string fileName) where T : new()
         {
-            StreamReader sr = new StreamReader(fileName);
-            string jsonString = (File.Exists(fileName)) ? sr.ReadToEnd() : "[]";
+            try
+            {
+                StreamReader sr = new StreamReader(fileName);
+                string jsonString = sr.ReadToEnd();
+                sr.Close();
 
-            List<T> Objects = JsonConvert.DeserializeObject<List<T>>(jsonString);
-
-            sr.Close();
-
-            return Objects;
+                return JsonConvert.DeserializeObject<List<T>>(jsonString);
+            }
+            catch (FileNotFoundException)
+            {
+                return JsonConvert.DeserializeObject<List<T>>("[]");
+            }
+            catch (System.Exception)
+            {
+                throw;
+            }
         }
     }
 }

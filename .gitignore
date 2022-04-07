@@ -1,3 +1,5 @@
-bin
-.vs
-.vscode
+/bin
+/.vs
+/.vscode
+/obj/debug
+/obj/release
