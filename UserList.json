@@ -1,0 +1,29 @@
+[
+  {
+    "UserID": 1,
+    "Name": "Rasputin",
+    "Email": "h4JEwe2K@gmail.com",
+    "Password": "string",
+    "Age": 25,
+    "NRIC": "970808104332",
+    "DOB": "08/08/1997"
+  },
+  {
+    "UserID": 2,
+    "Name": "Hendrickson",
+    "Email": "hendrickson@gmail.com",
+    "Password": "string",
+    "Age": 23,
+    "NRIC": "990201106001",
+    "DOB": "01/02/1999"
+  },
+  {
+    "UserID": 3,
+    "Name": "Mikasa Ackerman",
+    "Email": "mikasa@gmail.com",
+    "Password": "string",
+    "Age": 23,
+    "NRIC": "990101105656",
+    "DOB": "01/01/1999"
+  }
+]

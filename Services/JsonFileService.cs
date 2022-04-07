@@ -1,28 +1,28 @@
 ﻿using Newtonsoft.Json;
-using RestAPI.Models;
 using System.Collections.Generic;
+using System.IO;
 
 namespace RestAPI.Services
 {
     public static class JsonFileService
     {
-        private static readonly string fileName = "UserList.json";
 
-        public static void SaveJsonFile(List<User> Users)
+        public static void SaveJsonFile<T>(List<T> Objects, string fileName) where T : new()
         {
-            string jsonObj = JsonConvert.SerializeObject(Users, Formatting.Indented);
-            System.IO.File.WriteAllText(fileName, jsonObj);
+            string jsonObj = JsonConvert.SerializeObject(Objects, Formatting.Indented);
+            File.WriteAllText(fileName, jsonObj);
         }
 
-        public static List<User> LoadJsonFile()
+        public static List<T> LoadJsonFile<T>(string fileName) where T : new()
         {
-            string jsonString = (System.IO.File.Exists(fileName))
-                                            ? System.IO.File.ReadAllText(fileName)
-                                            : "[]";
+            StreamReader sr = new StreamReader(fileName);
+            string jsonString = (File.Exists(fileName)) ? sr.ReadToEnd() : "[]";
 
-            List<User> Users = JsonConvert.DeserializeObject<List<User>>(jsonString);
+            List<T> Objects = JsonConvert.DeserializeObject<List<T>>(jsonString);
 
-            return Users;
+            sr.Close();
+
+            return Objects;
         }
     }
 }

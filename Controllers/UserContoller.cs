@@ -1,9 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System;
 using System.Linq;
-using System.Text;
-// using System;
-using System.Security.Cryptography;
 using RestAPI.Models;
 using RestAPI.Services;
 
@@ -13,7 +11,9 @@ namespace RestAPI.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        private static List<User> Users = JsonFileService.LoadJsonFile();
+        public static readonly string fileName = "UserList.json";
+        private static List<User> Users = JsonFileService.LoadJsonFile<User>(fileName);
+
 
         [HttpGet]
         public IEnumerable<User> Get()
@@ -40,7 +40,7 @@ namespace RestAPI.Controllers
                 NRIC = value.NRIC
             });
 
-            JsonFileService.SaveJsonFile(Users);
+            JsonFileService.SaveJsonFile(Users, fileName);
         }
 
         [HttpPut("{id}")]
@@ -52,7 +52,8 @@ namespace RestAPI.Controllers
             if (value.Email != null) selectedUser.Email = value.Email;
             if (value.Password != null) selectedUser.Password = value.Password;
             if (value.NRIC != null) selectedUser.NRIC = value.NRIC;
-            JsonFileService.SaveJsonFile(Users);
+
+            JsonFileService.SaveJsonFile(Users, fileName);
 
         }
 
@@ -62,7 +63,8 @@ namespace RestAPI.Controllers
             User selectedUser = Users.Find(user => user.UserID == id);
             if (selectedUser == null) return;
             Users.Remove(selectedUser);
-            JsonFileService.SaveJsonFile(Users);
+
+            JsonFileService.SaveJsonFile(Users, fileName);
         }
     }
 }
