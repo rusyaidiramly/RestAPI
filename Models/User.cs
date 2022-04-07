@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 
 namespace RestAPI.Models
 {
@@ -35,7 +36,7 @@ namespace RestAPI.Models
             if (!isNumericYear || !isNumericMonth || !isNumericDay) return;
 
             int currentYear = int.Parse(DateTime.Now.ToString("yy"));
-            year += (year <= currentYear) ? 2000 : 1900;
+            year = CultureInfo.CurrentCulture.Calendar.ToFourDigitYear(year);
 
             DOB = $"{day}/{month}/{year}";
         }

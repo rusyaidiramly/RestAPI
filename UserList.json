@@ -7,5 +7,14 @@
     "Age": 33,
     "NRIC": "890201106666",
     "DOB": "01/02/1989"
+  },
+  {
+    "UserID": 2,
+    "Name": "Endevor",
+    "Email": "edv@gmail.com",
+    "Password": "string",
+    "Age": 20,
+    "NRIC": "020201106666",
+    "DOB": "01/02/2002"
   }
 ]

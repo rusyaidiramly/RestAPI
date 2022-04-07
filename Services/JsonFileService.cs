@@ -28,7 +28,8 @@ namespace RestAPI.Services
                 string jsonString = sr.ReadToEnd();
                 sr.Close();
 
-                return JsonConvert.DeserializeObject<List<T>>(jsonString);
+                return JsonConvert.DeserializeObject<List<T>>(jsonString);;
+
             }
             catch (FileNotFoundException)
             {
