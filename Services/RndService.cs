@@ -3,10 +3,10 @@ using System.Security.Cryptography;
 
 namespace RestAPI.Services
 {
-    public static class RndAlphaService
+    public static class RndService
     {
 
-        public static string Generate(int length)
+        public static string RndAlphaNum(int length)
         {
             const string valid = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
             StringBuilder res = new StringBuilder();

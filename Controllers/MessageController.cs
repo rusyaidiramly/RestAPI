@@ -22,7 +22,7 @@ namespace RestAPI.Controllers
         }
 
         [HttpGet("{mId}")]
-        public Message Get(int mId)
+        public Message Get(string mId)
         {
             return Messages.Find(message
                     => message.MessageID == mId
@@ -33,10 +33,9 @@ namespace RestAPI.Controllers
         [HttpPost]
         public void Post([FromBody] Message value)
         {
-            int currentID = (Messages?.Any() == true) ? Messages.Last().MessageID : 0;
             Messages.Add(new Message
             {
-                MessageID = currentID + 1,
+                MessageID = RndService.RndAlphaNum(8),
                 AuthorID = int.Parse(RouteData.Values["id"].ToString()),
                 PlainMessage = value.PlainMessage
             });
@@ -45,7 +44,7 @@ namespace RestAPI.Controllers
         }
 
         [HttpPut("{mId}")]
-        public void Put(int mId, [FromBody] Message value)
+        public void Put(string mId, [FromBody] Message value)
         {
             Message selectedMessage = Messages.Find(message
                                         => message.MessageID == mId
@@ -60,7 +59,7 @@ namespace RestAPI.Controllers
         }
 
         [HttpDelete("{mId}")]
-        public void Delete(int mId)
+        public void Delete(string mId)
         {
             Message selectedMessage = Messages.Find(message
                                         => message.MessageID == mId

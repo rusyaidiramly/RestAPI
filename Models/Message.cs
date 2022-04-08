@@ -5,9 +5,9 @@ namespace RestAPI.Models
     {
         private static readonly string[] letterM =//A to Z uppercase 65 to 90 ASCII
         {
-                ".-","-...","-.-.","-..",".","..-.","--.","....","..",".---","-.-",".-..","--",
-                "-.","---",".--.","--.-",".-.","...","-","..-","...-",".--","-..-","-.--","--.."
-            };
+            ".-","-...","-.-.","-..",".","..-.","--.","....","..",".---","-.-",".-..","--",
+            "-.","---",".--.","--.-",".-.","...","-","..-","...-",".--","-..-","-.--","--.."
+        };
 
         private static readonly string[] digitM =//0 to 9 48 to 57 ASCII
         {
@@ -25,7 +25,7 @@ namespace RestAPI.Models
         };
 
         private string plainMessage;
-        public int MessageID { get; set; }
+        public string MessageID { get; set; }
         public string PlainMessage
         {
             get { return plainMessage; }
