@@ -17,7 +17,7 @@ namespace RestAPI.Controllers
         public IEnumerable<Message> Get()
         {
             return Messages.FindAll(
-                message => message.AuthorID == int.Parse(RouteData.Values["userid"].ToString())
+                    message => message.AuthorID == int.Parse(RouteData.Values["userid"].ToString())
             );
         }
 
@@ -66,7 +66,7 @@ namespace RestAPI.Controllers
                                         => message.MessageID == id
                                         && message.AuthorID == int.Parse(RouteData.Values["userid"].ToString())
                                     );
-                                    
+
             if (selectedMessage == null) return;
             Messages.Remove(selectedMessage);
 
