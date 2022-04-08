@@ -36,7 +36,6 @@ namespace RestAPI.Models
 
             if (!isNumericYear || !isNumericMonth || !isNumericDay) return;
 
-            int currentYear = int.Parse(DateTime.Now.ToString("yy"));
             year = CultureInfo.CurrentCulture.Calendar.ToFourDigitYear(year);
 
             DOB = $"{day}/{month}/{year}";
