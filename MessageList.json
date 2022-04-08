@@ -1,0 +1,8 @@
+[
+  {
+    "MessageID": 1,
+    "PlainMessage": "hello there",
+    "MorseCode": ".... . .-.. .-.. --- / - .... . .-. .",
+    "AuthorID": 1
+  }
+]
