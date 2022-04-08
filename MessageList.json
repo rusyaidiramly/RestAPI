@@ -22,5 +22,17 @@
     "PlainMessage": "stgfdgfdgfdring",
     "MorseCode": "... - --. ..-. -.. --. ..-. -.. --. ..-. -.. .-. .. -. --.",
     "AuthorID": 1
+  },
+  {
+    "MessageID": "N2vSJUGI",
+    "PlainMessage": "string$",
+    "MorseCode": "... - .-. .. -. --. $",
+    "AuthorID": 1
+  },
+  {
+    "MessageID": "MhS2gJtT",
+    "PlainMessage": "string$ hola amigos",
+    "MorseCode": "... - .-. .. -. --. $ .... --- .-.. .-  .- -- .. --. --- ...",
+    "AuthorID": 1
   }
 ]

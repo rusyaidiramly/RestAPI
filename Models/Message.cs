@@ -1,26 +1,16 @@
+using System;
+using System.Linq;
 
 namespace RestAPI.Models
 {
     public class Message
     {
-        private static readonly string[] letterM = //A to Z uppercase 65 to 90 ASCII
+        private static readonly string valid = " ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.,;?'-/()\"@=";
+        private static readonly string[] morseCodes =
         {
-            ".-","-...","-.-.","-..",".","..-.","--.","....","..",".---","-.-",".-..","--",
-            "-.","---",".--.","--.-",".-.","...","-","..-","...-",".--","-..-","-.--","--.."
-        };
-
-        private static readonly string[] digitM = //0 to 9 48 to 57 ASCII
-        {
-            "-----",".----","..---","...--","....-",".....","-....","--...","---..","----."
-        };
-
-        private static readonly string[] punct =
-        {
-            ".",",",";","?","'","-","/","(",")","\"","@","="
-        };
-
-        private static readonly string[] punctM = //punct
-        {
+            " /",".-","-...","-.-.","-..",".","..-.","--.","....","..",".---","-.-",".-..","--",
+            "-.","---",".--.","--.-",".-.","...","-","..-","...-",".--","-..-","-.--","--..",
+            "-----",".----","..---","...--","....-",".....","-....","--...","---..","----.",
             ".-.-.-","--..--","---...","..--..",".----.","-....-","-..-.","-.--.-","-.--.-",".-..-.",".--.-.","-...-"
         };
 
@@ -36,54 +26,17 @@ namespace RestAPI.Models
 
         public string ToMorseCode()
         {
-            string morseCode = "";
-            string uCase = plainMessage.ToUpper(), temp, alph, num;
-            for (int i = 0; i < uCase.Length; i++)
+            char[] uCase = plainMessage.ToUpper().ToCharArray();
+
+            string[] res = uCase.Select((ch, i) =>
             {
-                temp = uCase[i].ToString();
-                for (int j = 0; j <= 26; j++)
-                {
-                    int re = j + 65;
-                    alph = ((char)re).ToString();
-                    if (temp == alph)
-                    {
-                        morseCode += letterM[j];
-                        if (i != uCase.Length - 1) morseCode += " ";
-                        break;
-                    }
-                }
+                if (!valid.Contains(ch)) return ch.ToString();
+                return morseCodes[Array.FindIndex(valid.ToCharArray(), nth => nth == ch)]
+                    + ((i != uCase.Length - 1) ? " " : "");
+            })
+            .ToArray();
 
-                for (int j = 0; j <= 9; j++)
-                {
-                    int re = j + 48;
-                    num = ((char)re).ToString();
-                    if (temp == num)
-                    {
-                        morseCode += digitM[j];
-                        if (i != uCase.Length - 1) morseCode += " ";
-                        break;
-                    }
-                }
-
-                for (int j = 0; j < punct.Length; j++)
-                {
-                    if (temp == punct[j])
-                    {
-                        morseCode += punctM[j];
-                        if (i != uCase.Length - 1) morseCode += " ";
-                        break;
-                    }
-                }
-
-                if (temp == " ")
-                {
-                    morseCode += "/ ";
-                }
-            }
-
-            return morseCode;
-
+            return string.Join("", res);
         }
-
     }
 }
