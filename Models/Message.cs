@@ -3,13 +3,13 @@ namespace RestAPI.Models
 {
     public class Message
     {
-        private static readonly string[] letterM =//A to Z uppercase 65 to 90 ASCII
+        private static readonly string[] letterM = //A to Z uppercase 65 to 90 ASCII
         {
             ".-","-...","-.-.","-..",".","..-.","--.","....","..",".---","-.-",".-..","--",
             "-.","---",".--.","--.-",".-.","...","-","..-","...-",".--","-..-","-.--","--.."
         };
 
-        private static readonly string[] digitM =//0 to 9 48 to 57 ASCII
+        private static readonly string[] digitM = //0 to 9 48 to 57 ASCII
         {
             "-----",".----","..---","...--","....-",".....","-....","--...","---..","----."
         };
@@ -19,7 +19,7 @@ namespace RestAPI.Models
             ".",",",";","?","'","-","/","(",")","\"","@","="
         };
 
-        private static readonly string[] punctM =//punct
+        private static readonly string[] punctM = //punct
         {
             ".-.-.-","--..--","---...","..--..",".----.","-....-","-..-.","-.--.-","-.--.-",".-..-.",".--.-.","-...-"
         };
@@ -65,7 +65,7 @@ namespace RestAPI.Models
                     }
                 }
 
-                for (int j = 0; j < 12; j++)
+                for (int j = 0; j < punct.Length; j++)
                 {
                     if (temp == punct[j])
                     {
