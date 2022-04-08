@@ -4,5 +4,11 @@
     "PlainMessage": "hello there",
     "MorseCode": ".... . .-.. .-.. --- / - .... . .-. .",
     "AuthorID": 1
+  },
+  {
+    "MessageID": 2,
+    "PlainMessage": "hola amigos",
+    "MorseCode": ".... --- .-.. .- / .- -- .. --. --- ...",
+    "AuthorID": 2
   }
 ]

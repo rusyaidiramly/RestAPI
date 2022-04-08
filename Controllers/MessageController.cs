@@ -6,7 +6,7 @@ using RestAPI.Services;
 
 namespace RestAPI.Controllers
 {
-    [Route("api/User/{userid}/[controller]")]
+    [Route("api/User/{id}/[controller]")]
     [ApiController]
     public class MessageController : ControllerBase
     {
@@ -17,16 +17,16 @@ namespace RestAPI.Controllers
         public IEnumerable<Message> Get()
         {
             return Messages.FindAll(
-                    message => message.AuthorID == int.Parse(RouteData.Values["userid"].ToString())
+                    message => message.AuthorID == int.Parse(RouteData.Values["id"].ToString())
             );
         }
 
-        [HttpGet("{id}")]
-        public Message Get(int id)
+        [HttpGet("{mId}")]
+        public Message Get(int mId)
         {
             return Messages.Find(message
-                    => message.MessageID == id
-                    && message.AuthorID == int.Parse(RouteData.Values["userid"].ToString())
+                    => message.MessageID == mId
+                    && message.AuthorID == int.Parse(RouteData.Values["id"].ToString())
             );
         }
 
@@ -37,19 +37,19 @@ namespace RestAPI.Controllers
             Messages.Add(new Message
             {
                 MessageID = currentID + 1,
-                AuthorID = int.Parse(RouteData.Values["userid"].ToString()),
+                AuthorID = int.Parse(RouteData.Values["id"].ToString()),
                 PlainMessage = value.PlainMessage
             });
 
             JsonFileService.SaveJsonFile(Messages, fileName);
         }
 
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] Message value)
+        [HttpPut("{mId}")]
+        public void Put(int mId, [FromBody] Message value)
         {
             Message selectedMessage = Messages.Find(message
-                                        => message.MessageID == id
-                                        && message.AuthorID == int.Parse(RouteData.Values["userid"].ToString())
+                                        => message.MessageID == mId
+                                        && message.AuthorID == int.Parse(RouteData.Values["id"].ToString())
                                     );
 
             if (selectedMessage == null) return;
@@ -59,12 +59,12 @@ namespace RestAPI.Controllers
 
         }
 
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [HttpDelete("{mId}")]
+        public void Delete(int mId)
         {
             Message selectedMessage = Messages.Find(message
-                                        => message.MessageID == id
-                                        && message.AuthorID == int.Parse(RouteData.Values["userid"].ToString())
+                                        => message.MessageID == mId
+                                        && message.AuthorID == int.Parse(RouteData.Values["id"].ToString())
                                     );
 
             if (selectedMessage == null) return;
