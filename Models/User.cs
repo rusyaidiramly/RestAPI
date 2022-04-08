@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 using System.Globalization;
 
 namespace RestAPI.Models
@@ -15,23 +16,23 @@ namespace RestAPI.Models
         public string NRIC
         {
             get { return _nric; }
-            set { _nric = value; ExtractDOB(value); }
+            set { _nric = value; if (_nric != null) ExtractDOB(); }
         }
 
         public string DOB
         {
             get { return _dob.ToString("dd/MM/yyyy"); }
-            private set { ConvertDOB(value); }
+            set { ConvertDOB(value); }
         }
 
-        private void ExtractDOB(string nric)
+        private void ExtractDOB()
         {
-            if (nric.Length != 12) return;
+            if (_nric?.Length != 12) return;
 
             int year, month, day;
-            bool isNumericYear = int.TryParse(nric.Substring(0, 2), out year);
-            bool isNumericMonth = int.TryParse(nric.Substring(2, 2), out month);
-            bool isNumericDay = int.TryParse(nric.Substring(4, 2), out day);
+            bool isNumericYear = int.TryParse(_nric.Substring(0, 2), out year);
+            bool isNumericMonth = int.TryParse(_nric.Substring(2, 2), out month);
+            bool isNumericDay = int.TryParse(_nric.Substring(4, 2), out day);
 
             if (!isNumericYear || !isNumericMonth || !isNumericDay) return;
 
@@ -43,12 +44,15 @@ namespace RestAPI.Models
 
         private void ConvertDOB(string sDOB)
         {
-            string[] dmy = sDOB.Split('/');
+            if (string.IsNullOrEmpty(sDOB)) return;
+            string[] dmy = Regex.Split(sDOB, @"[^\d]");
             if (dmy.Length != 3) return;
 
-            int dd = int.Parse(dmy[0]);
-            int mm = int.Parse(dmy[1]);
-            int yy = int.Parse(dmy[2]);
+            int dd = validate(dmy[0]);
+            int mm = validate(dmy[1]);
+            int yy = validate(dmy[2]);
+
+            if (dd == -1 || mm == -1 || yy == -1) return;
 
             _dob = new DateTime(yy, mm, dd);
 
@@ -58,6 +62,13 @@ namespace RestAPI.Models
         private void CalculateAge()
         {
             Age = DateTime.Now.Year - _dob.Year;
+        }
+
+        private int validate(string dmy)
+        {
+            int _dmy;
+            bool isNumeric = int.TryParse(dmy, out _dmy);
+            return (isNumeric) ? _dmy : -1;
         }
 
     }

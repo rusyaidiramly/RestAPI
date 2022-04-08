@@ -1,20 +1,20 @@
 [
   {
     "UserID": 1,
-    "Name": "string",
+    "Name": "usr1",
     "Email": "string",
     "Password": "string",
-    "Age": 33,
-    "NRIC": "890201106666",
-    "DOB": "01/02/1989"
+    "Age": 5,
+    "NRIC": null,
+    "DOB": "20/02/2017"
   },
   {
     "UserID": 2,
-    "Name": "Endevor",
-    "Email": "edv@gmail.com",
+    "Name": "usr1",
+    "Email": "string",
     "Password": "string",
-    "Age": 20,
-    "NRIC": "020201106666",
-    "DOB": "01/02/2002"
+    "Age": 25,
+    "NRIC": "970808104455",
+    "DOB": "08/08/1997"
   }
 ]

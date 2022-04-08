@@ -30,14 +30,15 @@ namespace RestAPI.Controllers
         [HttpPost]
         public void Post([FromBody] User value)
         {
-            int currentID = (Users.Any()) ? Users.Last().UserID : 0;
+            int currentID = (Users?.Any() == true) ? Users.Last().UserID : 0;
             Users.Add(new User
             {
                 UserID = currentID + 1,
                 Name = value.Name,
                 Email = value.Email,
                 Password = value.Password,
-                NRIC = value.NRIC
+                NRIC = value.NRIC,
+                DOB = value.DOB
             });
 
             JsonFileService.SaveJsonFile(Users, fileName);
@@ -52,6 +53,7 @@ namespace RestAPI.Controllers
             if (value.Email != null) selectedUser.Email = value.Email;
             if (value.Password != null) selectedUser.Password = value.Password;
             if (value.NRIC != null) selectedUser.NRIC = value.NRIC;
+            if (value.NRIC == null && value.DOB != null) selectedUser.DOB = value.DOB;
 
             JsonFileService.SaveJsonFile(Users, fileName);
 
