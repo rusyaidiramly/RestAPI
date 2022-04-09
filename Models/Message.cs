@@ -1,5 +1,7 @@
 using System;
 using System.Linq;
+using System.Text;
+using System.Diagnostics;
 
 namespace RestAPI.Models
 {
@@ -8,7 +10,7 @@ namespace RestAPI.Models
         private static readonly string valid = " ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.,;?'-/()\"@=";
         private static readonly string[] morseCodes =
         {
-            " /",".-","-...","-.-.","-..",".","..-.","--.","....","..",".---","-.-",".-..","--",
+            "/",".-","-...","-.-.","-..",".","..-.","--.","....","..",".---","-.-",".-..","--",
             "-.","---",".--.","--.-",".-.","...","-","..-","...-",".--","-..-","-.--","--..",
             "-----",".----","..---","...--","....-",".....","-....","--...","---..","----.",
             ".-.-.-","--..--","---...","..--..",".----.","-....-","-..-.","-.--.-","-.--.-",".-..-.",".--.-.","-...-"
@@ -16,6 +18,7 @@ namespace RestAPI.Models
 
         private string plainMessage;
         public string MessageID { get; set; }
+
         public string PlainMessage
         {
             get { return plainMessage; }
@@ -27,16 +30,28 @@ namespace RestAPI.Models
         public string ToMorseCode()
         {
             char[] uCase = plainMessage.ToUpper().ToCharArray();
+            StringBuilder res = new StringBuilder();
+            bool match;
 
-            string[] res = uCase.Select((ch, i) =>
+            for (int x = 0; x < uCase.Length; x++)
             {
-                if (!valid.Contains(ch)) return ch.ToString();
-                return morseCodes[Array.FindIndex(valid.ToCharArray(), nth => nth == ch)]
-                    + ((i != uCase.Length - 1) ? " " : "");
-            })
-            .ToArray();
+                match = false;
 
-            return string.Join("", res);
+                for (int y = 0; y < valid.Length; y++)
+                {
+                    if (uCase[x] == valid[y])
+                    {
+                        match = true;
+                        res.Append(morseCodes[y]);
+                        break;
+                    }
+                }
+
+                if (!match) res.Append(uCase[x]);
+                if (x != uCase.Length - 1) res.Append(" ");
+            }
+
+            return res.ToString();
         }
     }
 }
